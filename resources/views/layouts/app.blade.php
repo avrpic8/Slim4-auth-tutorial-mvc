@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="<?php asset('css/bootstrap.css');?>">
     <link rel="stylesheet" href="<?php asset('css/bootstrap-reboot.css');?>">
+    <link rel="stylesheet" href="<?php asset('css/style.css');?>">
 </head>
 <body>
     <div>

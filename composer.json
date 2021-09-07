@@ -3,16 +3,18 @@
         "slim/slim": "4.*",
         "slim/psr7": "^1.4",
         "php-di/php-di": "^6.3",
-        "jenssegers/blade": "^1.4"
+        "jenssegers/blade": "^1.4",
+        "illuminate/database": "^8.59",
+        "ext-pdo": "*"
     },
 
     "autoload": {
 
         "files": [
-            "./src/helpers.php"
+            "./app/helpers.php"
         ],
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "app/"
         }
     }
 }

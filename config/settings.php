@@ -31,4 +31,26 @@ $settings['error'] = [
     'log_error_details' => true,
 ];
 
+$settings['db'] = [
+    'driver' => 'mysql',
+    'host' => '127.0.0.1',
+    'database' => 'slim-test',
+    'username' => 'root',
+    'password' => '',
+    'collation' => 'utf8_general_ci',
+    'charset' => 'utf8',
+    'prefix' => '',
+    'options' => [
+        // Turn off persistent connections
+        PDO::ATTR_PERSISTENT => false,
+        // Enable exceptions
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        // Emulate prepared statements
+        PDO::ATTR_EMULATE_PREPARES => true,
+        // Set default fetch mode to array
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        // Set character set
+    ],
+];
+
 return $settings;

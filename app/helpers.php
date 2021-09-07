@@ -13,11 +13,11 @@ if(!file_exists('view')) {
         $response->getBody()->write($blade->render());
         return $response;
     }
+}
 
-    function asset($dir){
+function asset($dir){
 
-        global $base_url;
-        $path = $base_url . "/" . $dir;
-        echo $path;
-    }
+    global $base_url;
+    $path = $base_url . "/" . $dir;
+    echo $path;
 }
