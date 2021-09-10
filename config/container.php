@@ -1,5 +1,6 @@
 <?php
 
+use Laminas\Config\Config;
 use Psr\Container\ContainerInterface;
 use Slim\App;
 use Slim\Factory\AppFactory;
@@ -9,6 +10,12 @@ return [
     'settings' => function () {
         return require __DIR__ . '/settings.php';
     },
+
+
+    Config::class => function () {
+        return new Config(require __DIR__ . '/settings.php');
+    },
+
 
     App::class => function (ContainerInterface $container) {
         AppFactory::setContainer($container);

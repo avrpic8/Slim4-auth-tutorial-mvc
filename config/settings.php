@@ -53,4 +53,9 @@ $settings['db'] = [
     ],
 ];
 
+$settings['APP'] = [
+    'APP_TITLE' => 'mvc project',
+    'BASE_URL'  => 'http://localhost:8000'
+];
+
 return $settings;
