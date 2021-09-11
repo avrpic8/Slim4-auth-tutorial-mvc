@@ -7,20 +7,16 @@ use App\Models\User;
 use Laminas\Config\Config;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use System\DataBase\DBConnection\DBConnection;
 
-class HomeController{
-
-    private Config $config;
-
-    public function __construct(Config $config)
-    {
-        $this->config = $config;
-    }
+class HomeController extends MainController {
 
     public function index(Request $request, Response $response, array $args): Response{
 
         //$users = User::where("email", "avrpic8@gmail.com")->get();
         $users = User::all();
+        $instance = DBConnection::getDBConnectionInstance();
+        dd($instance);
 //        $sets = $this->config->toArray();
 //        var_dump($sets['APP']);
 //        exit();
