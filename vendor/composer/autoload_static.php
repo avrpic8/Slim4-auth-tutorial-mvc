@@ -23,7 +23,7 @@ class ComposerStaticInit146127f65202d20bf3f4f3e2f1aef13b
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
         'b33e3d135e5d9e47d845c576147bda89' => __DIR__ . '/..' . '/php-di/php-di/src/functions.php',
-        '32b0e3923194ab469a640d51c243b626' => __DIR__ . '/../..' . '/app/helpers.php',
+        '9282b7631d921b4f25619058d733bdac' => __DIR__ . '/../..' . '/system/Helpers/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -33,6 +33,7 @@ class ComposerStaticInit146127f65202d20bf3f4f3e2f1aef13b
         ),
         'S' => 
         array (
+            'System\\' => 7,
             'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Php73\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
@@ -107,6 +108,10 @@ class ComposerStaticInit146127f65202d20bf3f4f3e2f1aef13b
         'voku\\' => 
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
+        ),
+        'System\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/system',
         ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (
@@ -1391,6 +1396,7 @@ class ComposerStaticInit146127f65202d20bf3f4f3e2f1aef13b
         'Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
         'Symfony\\Polyfill\\Php73\\Php73' => __DIR__ . '/..' . '/symfony/polyfill-php73/Php73.php',
         'Symfony\\Polyfill\\Php80\\Php80' => __DIR__ . '/..' . '/symfony/polyfill-php80/Php80.php',
+        'System\\Application\\Application' => __DIR__ . '/../..' . '/system/Application/Application.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
         'voku\\helper\\ASCII' => __DIR__ . '/..' . '/voku/portable-ascii/src/voku/helper/ASCII.php',

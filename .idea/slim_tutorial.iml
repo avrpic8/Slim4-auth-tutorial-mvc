@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" packagePrefix="App\" />
+      <sourceFolder url="file://$MODULE_DIR$/system" isTestSource="false" packagePrefix="System\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ralouphie/getallheaders" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-di/php-di" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/slim/psr7" />
@@ -50,8 +51,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/service-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php73" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/illuminate/database" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-stdlib" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-config" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-stdlib" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

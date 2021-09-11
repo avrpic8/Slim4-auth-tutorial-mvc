@@ -17,11 +17,12 @@ class HomeController{
         $this->config = $config;
     }
 
-    public function index(Request $request, Response $response): Response{
+    public function index(Request $request, Response $response, array $args): Response{
 
-        $users = User::find(1)->password;
+        //$users = User::where("email", "avrpic8@gmail.com")->get();
+        $users = User::all();
 //        $sets = $this->config->toArray();
-//        var_dump($sets['root']);
+//        var_dump($sets['APP']);
 //        exit();
         return view($response, 'home.index', compact('users'));
     }
