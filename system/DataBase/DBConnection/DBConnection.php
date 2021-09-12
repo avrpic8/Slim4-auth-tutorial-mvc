@@ -5,15 +5,13 @@ namespace System\DataBase\DBConnection;
 use Laminas\Config\Config;
 use PDO;
 use PDOException;
+use System\Application\Application;
 
 class DBConnection{
 
     private static $dbConnectionInstance = null;
-    private Config $config;
 
-    private function __construct(Config $config){
-        $this->config = $config;
-    }
+    private function __construct(){}
 
     public static function getDBConnectionInstance(){
 
@@ -27,7 +25,7 @@ class DBConnection{
 
     private function dbConnection(){
 
-        $sets = $this->config->toArray();
+        $dbSets = getConfig()->toArray();
         $option = array(
             PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
@@ -35,8 +33,8 @@ class DBConnection{
 
         try {
             return new PDO(
-                "mysql:host=" . $sets['db']['host'] . ";dbname=" . $sets['db']['database'],
-                $sets['db']['username'], $sets['db']['password'], $option
+                "mysql:host=" . $dbSets['db']['host'] . ";dbname=" . $dbSets['db']['database'],
+                $dbSets['db']['username'], $dbSets['db']['password'], $option
             );
         }catch (PDOException $e){
             echo "Error in database connection " . $e->getMessage();

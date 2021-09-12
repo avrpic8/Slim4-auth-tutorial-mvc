@@ -15,11 +15,6 @@ class HomeController extends MainController {
 
         //$users = User::where("email", "avrpic8@gmail.com")->get();
         $users = User::all();
-        $instance = DBConnection::getDBConnectionInstance();
-        dd($instance);
-//        $sets = $this->config->toArray();
-//        var_dump($sets['APP']);
-//        exit();
         return view($response, 'home.index', compact('users'));
     }
 }

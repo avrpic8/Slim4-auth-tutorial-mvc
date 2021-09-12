@@ -1,4 +1,6 @@
 <?php
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
-return new \System\Application\Application();
+$app = new \System\Application\Application();
+$app->boot()->run();

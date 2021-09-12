@@ -9,29 +9,32 @@ use Illuminate\Database\Capsule\Manager;
 
 class Application
 {
-    private App $app;
-    private Config $config;
+    private static App $app;
+    private static Config $config;
 
-    public function __construct()
-    {
-        $this->initContainer();
-        $this->registersRoutes();
-        $this->initDatabase();
+    private function loadProviders(){
+
+        $appConfig = require dirname(__DIR__, 2) . '/config/settings.php';
+        $providers = $appConfig['APP']['providers'];
+        foreach ($providers as $provider) {
+            $providerObject = new $provider();
+            $providerObject->boot();
+        }
     }
 
     private function initContainer(){
 
         $containerBuilder = new ContainerBuilder();
-        $containerBuilder->addDefinitions(__DIR__ . '/../../config/container.php');
+        $containerBuilder->addDefinitions(dirname(__DIR__, 2) . '/config/container.php');
         $container = $containerBuilder->build();
 
-        $this->app = $container->get(App::class);
-        $this->config = $container->get(Config::class);
+        self::$app = $container->get(App::class);
+        self::$config = $container->get(Config::class);
     }
 
     private function initDatabase(){
 
-        $dbSettings = $this->config->toArray()['db'];
+        $dbSettings = self::$config->toArray()['db'];
         $capsule = new Manager();
         $capsule->addConnection($dbSettings);
         $capsule->bootEloquent();
@@ -40,11 +43,26 @@ class Application
 
     private function registersRoutes(){
 
-        (require __DIR__ . '/../../routes/web.php')($this->app);
-        (require __DIR__ . '/../../config/middleware.php')($this->app);
+        (require dirname(__DIR__, 2) . '/routes/web.php')(self::$app);
+        (require dirname(__DIR__, 2) . '/config/middleware.php')(self::$app);
     }
 
-    public function getApp(){
-        return $this->app;
+    public static function getApp(): App{
+        return self::$app;
+    }
+
+    public static function getConfig(): Config
+    {
+        return self::$config;
+    }
+
+    public function boot(): App{
+
+        $this->loadProviders();
+        $this->initContainer();
+        $this->registersRoutes();
+        $this->initDatabase();
+
+        return self::$app;
     }
 }

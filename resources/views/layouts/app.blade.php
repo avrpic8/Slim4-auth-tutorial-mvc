@@ -8,9 +8,9 @@
     <title>Slim4 tutorial</title>
 
     <link rel="stylesheet" href="">
-    <link rel="stylesheet" href="<?php asset('css/bootstrap.css');?>">
-    <link rel="stylesheet" href="<?php asset('css/bootstrap-reboot.css');?>">
-    <link rel="stylesheet" href="<?php asset('css/style.css');?>">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap-reboot.css')}}">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
 </head>
 <body>
     <div>
@@ -21,6 +21,6 @@
     </div>
 
 
-    <script src="<?php asset('js/bootstrap.bundle.min.js');?>"></script>
+    <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
 </body>
 </html>
