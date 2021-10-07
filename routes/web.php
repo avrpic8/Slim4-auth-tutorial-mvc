@@ -1,13 +1,27 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Middleware\AdminCheckMiddleware;
 use Slim\App;
-use App\Http\Controllers\HomeController;
+use Slim\Routing\RouteCollectorProxy;
 
 
 return function (App $app) {
 
-    $app->get('/', [HomeController::class , 'index'])
-        ->addMiddleware(new AdminCheckMiddleware($app->getResponseFactory()))
-        ->setName('home');
+    //// ================ Auth Routes ================
+
+    /// Login Routes
+    $app->group('/login', function (RouteCollectorProxy $group){
+
+        $group->get('', [LoginController::class, 'view'])
+            ->setName('auth.login.view');
+    });
+
+    /// Register Routes
+    $app->group('/register', function (RouteCollectorProxy $group){
+
+        $group->get('', [RegisterController::class, 'view'])
+            ->setName('auth.register.view');
+    });
 };
