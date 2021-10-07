@@ -2,43 +2,48 @@
 
 namespace System\Application;
 
+use App\Providers\DatabaseProvider;
+use App\Providers\SessionProvider;
+use App\Providers\TranslationProvider;
+use DI\Container;
 use DI\ContainerBuilder;
-use Laminas\Config\Config;
+use PHLAK\Config\Config;
 use Slim\App;
-use Illuminate\Database\Capsule\Manager;
 
 class Application
 {
     private static App $app;
+    private Container $container;
     private static Config $config;
-
-    private function loadProviders(){
-
-        $appConfig = require dirname(__DIR__, 2) . '/config/settings.php';
-        $providers = $appConfig['APP']['providers'];
-        foreach ($providers as $provider) {
-            $providerObject = new $provider();
-            $providerObject->boot();
-        }
-    }
 
     private function initContainer(){
 
         $containerBuilder = new ContainerBuilder();
         $containerBuilder->addDefinitions(dirname(__DIR__, 2) . '/config/container.php');
-        $container = $containerBuilder->build();
+        $this->container = $containerBuilder->build();
 
-        self::$app = $container->get(App::class);
-        self::$config = $container->get(Config::class);
+        self::$app = $this->container->get(App::class);
+        self::$config = $this->container->get(Config::class);
     }
 
-    private function initDatabase(){
+    private function loadHelpers(){
 
-        $dbSettings = self::$config->toArray()['db'];
-        $capsule = new Manager();
-        $capsule->addConnection($dbSettings);
-        $capsule->bootEloquent();
-        $capsule->setAsGlobal();
+        require dirname(__DIR__) . '/Helpers/helpers.php';
+        if(file_exists(dirname(__DIR__, 2) . '/app/Http/helpers.php')){
+            require_once (dirname(__DIR__, 2) . '/app/Http/helpers.php');
+        }
+    }
+
+    private function loadProviders(){
+
+        $databaseProvider = new DatabaseProvider($this->container);
+        $databaseProvider->boot();
+
+        $translatorProvider = new TranslationProvider($this->container);
+        $translatorProvider->boot();
+
+        $session = new SessionProvider();
+        $session->boot();
     }
 
     private function registersRoutes(){
@@ -58,10 +63,10 @@ class Application
 
     public function boot(): App{
 
-        $this->loadProviders();
         $this->initContainer();
+        $this->loadHelpers();
+        $this->loadProviders();
         $this->registersRoutes();
-        $this->initDatabase();
 
         return self::$app;
     }

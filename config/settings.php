@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 // Timezone
-date_default_timezone_set('Europe/Berlin');
+date_default_timezone_set('Asia/Tehran');
 
 // Settings
 $settings = [];
@@ -34,7 +34,7 @@ $settings['error'] = [
 $settings['db'] = [
     'driver' => 'mysql',
     'host' => '127.0.0.1',
-    'database' => 'slim-test',
+    'database' => 'new_mvc',
     'username' => 'root',
     'password' => '',
     'collation' => 'utf8_general_ci',
@@ -53,12 +53,30 @@ $settings['db'] = [
     ],
 ];
 
+$settings['MAIL'] = [
+
+    'SMTP' => [
+        'Host'       => 'smtp.gmail.com',
+        'SMTPAuth'   => true,
+        'Username'   => 'avrpic8@gmail.com',
+        'Password'   => '1804154318041',
+        'Port'       => 587,
+        'setFrom'    => [
+            'mail'  =>  'avrpic8@gmail.com',
+            'name'  =>  'PHP-MVC'
+        ]
+    ]
+];
+
 $settings['APP'] = [
-    'APP_TITLE' => 'mvc project',
-    'BASE_URL'  => 'http://localhost:8000',
+    'APP_TITLE' => 'slim4',
+    'BASE_URL'  => '',
     'BASE_DIR'  => dirname(__DIR__),
+    'locale'    => 'en',
+    'fallback_locale' => 'en',
     'providers' =>[
-        \App\Providers\SessionProvider::class
+        \App\Providers\SessionProvider::class,
+        \App\Providers\DatabaseProvider::class
     ]
 ];
 

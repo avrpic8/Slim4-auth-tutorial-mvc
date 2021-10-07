@@ -1,12 +1,14 @@
 <?php
 
+use PHLAK\Config\Config;
 use Slim\App;
 use System\Application\Application;
 use Psr\Http\Message\ResponseInterface as Response;
 use Jenssegers\Blade\Blade;
-use Laminas\Config\Config;
 
-function view(Response $response, $template, $with = []){
+
+function view(Response $response, $template, $with = []): Response
+{
     $cache = __DIR__ . '/../../cache';
     $views = __DIR__ . '/../../resources/views';
     $blade = (new Blade($views, $cache))->make($template, $with);
@@ -80,9 +82,12 @@ function error($name, $message = null){
     }
 }
 
-function errorExist($name){
+function errorExist($name = null){
 
-    return isset($_SESSION["temporary_errorFlash"][$name]) === true ? true : false;
+    if($name == null) {
+        return isset($_SESSION["temporary_errorFlash"]) === true ? count($_SESSION["temporary_errorFlash"]) : false;
+    }
+    return isset($_SESSION["temporary_errorFlash"][$name]) === true;
 }
 
 function allErrors(){
@@ -113,9 +118,38 @@ function url($url): string{
     return currentDomain() . ("/" . trim($url, "/ "));
 }
 
+function redirect($url){
+
+    $url = trim($url, '/ ');
+    $url = strpos($url, currentDomain()) === 0 ? $url : currentDomain() . "/" . $url;
+    header("Location: " .$url);
+    exit();
+}
+
+function back(){
+
+    $http_referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null;
+    redirect($http_referer);
+}
+
 function currentUrl(): string{
 
     return currentDomain() . $_SERVER['REQUEST_URI'];
+}
+
+function currentRoute(): string{
+
+    return $_SERVER['REQUEST_URI'];
+}
+
+function rootPath($path = null){
+    $root = __DIR__."/../..";
+    return realpath($path ? $root."/".$path : $root);
+}
+
+function resource($path = null){
+    $resource = rootPath("resources");
+    return $path ? $resource."/".$path : $resource;
 }
 
 function generateToken(){
@@ -123,8 +157,30 @@ function generateToken(){
     return bin2hex(openssl_random_pseudo_bytes(32));
 }
 
+function validator(array $data, array $rules, array $messages = [], array $customAttributes = []){
+
+    $validator = require dirname(__DIR__) . '/Dependency/validator.php';
+    return $validator->make($data, $rules, $messages, $customAttributes);
+}
+
 function getApp(): App{
     return Application::getApp();
+}
+
+function container()
+{
+    return getApp()->getContainer();
+}
+
+function dependency($name){
+
+    return container()->get($name);
+}
+
+function route($name, $data = [], $params = []): string{
+
+    $routeParser = getApp()->getRouteCollector()->getRouteParser();
+    return $routeParser->urlFor($name, $data);
 }
 
 function getConfig(): Config{

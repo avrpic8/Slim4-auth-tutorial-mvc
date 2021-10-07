@@ -1,6 +1,6 @@
 <?php
 
-use Laminas\Config\Config;
+use PHLAK\Config\Config;
 use Psr\Container\ContainerInterface;
 use Slim\App;
 use Slim\Factory\AppFactory;
@@ -10,7 +10,6 @@ return [
     'settings' => function () {
         return require __DIR__ . '/settings.php';
     },
-
 
     Config::class => function () {
         return new Config(require __DIR__ . '/settings.php');
